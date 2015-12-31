@@ -1,0 +1,14 @@
+.modifyEntryPageShortcutKeyBar {
+  width: 4% !important;
+  clear: none !important;
+}
+.ui-collapsible {
+    margin-left: 0px;
+}
+.tab {
+	width: 100%; /* must be 100% */
+	white-space: pre-wrap;
+	word-wrap: break-word; 
+	border: 1px solid transparent; 
+	/* cannot use "overflow-x: auto;", otherwise some tap events won't fire */ 
+}

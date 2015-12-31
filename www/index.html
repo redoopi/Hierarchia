@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+<script src="js/jquery-1.11.3.min.js"></script>
+<script>
+  $(document).on('mobileinit', function() {
+    if (navigator.userAgent.toLowerCase().indexOf("android") != -1) {
+		// prevent flickering when navigating between pages on Android
+        $.mobile.defaultPageTransition = 'none';
+        $.mobile.defaultDialogTransition = 'none';
+    }
+  });
+</script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<link rel="stylesheet" href="css/index.css">
+<script type="text/javascript" src="js/jquery.xslt.js"></script>
+<script src="cordova.js"></script>
+<script src="js/index.js"></script>
+</head>
+<body>
+<div id="mainPage" data-role="page">
+	<div id="mainPageHeader" data-role="header" data-position="fixed" data-tap-toggle="false">
+    <div style="overflow:hidden; float:right; clear:right;">
+      <table style="width:100%">
+        <tr>
+          <td>
+            <input id="txtSearch" type="search" data-mini="true" size="18" />
+          </td>
+          <td>
+            <a id="btnSearch" href="#" data-role="button">Search</a>
+            <a id="btnNotebookMenu" href="#" data-role="button">Notebook</a>
+            <a id="btnEntryMenu" href="#" data-role="button">Entry</a>
+            <a id="btnMoveLeft" href="#" data-role="button">&lt;</a>
+            <a id="btnMoveRight" href="#" data-role="button">&gt;</a>
+            <a id="btnTest" href="#" data-role="button">Test</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="navbar" data-role="navbar" style="clear:both">
+      <ul>
+        <li id="dummyLi"></li>
+      </ul>
+    </div>
+	</div>
+  <div data-role="content">	
+    <p id="log"></p>
+    <textarea id="txtTest" data-autogrow="false" style='display:none;'></textarea>      
+    <a id='notebookMenuPageHiddenLink' href="#notebookMenuPage" data-rel="dialog" style='display:none;'></a>
+    <a id='entryMenuPageHiddenLink' href="#entryMenuPage" data-rel="dialog" style='display:none;'></a>
+    <a id='modifyEntryPageHiddenLink' href="#modifyEntryPage" style='display:none;'></a>
+    <a id='cancelWithoutSaveConfirmationDialogHiddenLink' href="#cancelWithoutSaveConfirmationDialog" style='display:none;'></a>
+    <a id='deleteConfirmationDialogHiddenLink' href="#deleteConfirmationDialog" style='display:none;'></a>
+    <a id='moveBeforePageHiddenLink' href="#moveBeforePage" style='display:none;'></a>
+    <a id='moveAfterPageHiddenLink' href="#moveAfterPage" style='display:none;'></a>
+    <a id='moveDownPageHiddenLink' href="#moveDownPage" style='display:none;'></a>
+    <a id='xsltPageHiddenLink' href="#xsltPage" style='display:none;'></a>
+    <div id="tabs">
+    </div>
+  </div>
+</div>
+
+<div id="notebookMenuPage" data-role="page">
+  <div data-role="content">
+    <a id="btnNewNotebook" href="fileBrowser.html" data-role="button">New notebook</a>
+    <a id="btnOpenNotebook" href="fileBrowser.html" data-role="button">Open notebook</a>
+    <a id="btnCloseNotebook" href="#" data-role="button">Close notebook</a>
+    <a id="btnXslt" href="#" data-role="button">XSL transformations</a>
+    <a id="btnSetTabWidth" href="#" data-role="button">Set width</a>
+    <a href="#" data-role="button" data-rel="back">Back</a>
+  </div>
+</div>
+
+<div id="entryMenuPage" data-role="page">
+  <div data-role="content">
+    <a id="btnModifyEntry" href="#" data-role="button">Modify</a>
+    <a id="btnAddChildEntry" href="#" data-role="button">Add child</a>
+    <a id="btnAddNextEntry" href="#" data-role="button">Add next</a>
+    <a id="btnDeleteEntry" href="#" data-role="button">Delete</a>
+    <a id="btnMoveBefore" href="#" data-role="button">Move before</a>
+    <a id="btnMoveAfter" href="#" data-role="button">Move after</a>
+    <a id="btnMoveDown" href="#" data-role="button">Append to</a>
+    <a id="btnExpand" href="#" data-role="button">Expand</a>
+    <a id="btnCollapse" href="#" data-role="button">Collapse</a>
+    <a href="#" data-role="button" data-rel="back">Back</a>
+  </div>
+</div>
+
+<div id="modifyEntryPage" data-role="page">
+  <div id="modifyEntryPageHeader" data-role="header" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar">
+      <ul>
+        <li><a id="btnModifyEntryTitle" href="#" data-role="button">Title</a></li>
+        <li><a id="btnModifyEntryContent" href="#" data-role="button">Content</a></li>
+        <li><a id="btnSaveEntry" href="#" data-role="button">Save</a></li>
+        <li><a id="btnCancelEntryModification" href="#" data-role="button">Cancel</a></li>
+        <li><a id="btnPreview" href="#" data-role="button">Preview</a></li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="content">
+    <div id="modifyEntryTitleTab">
+      <textarea id="txtModifyEntryTitle" data-autogrow="false" rows="10"></textarea>      
+    </div>
+    <div id="modifyEntryContentTab">
+      <textarea id="txtModifyEntryContent" data-autogrow="false" rows="10"></textarea>   
+    </div>
+    <div id="modifyEntryPreviewTab" style="white-space: pre-wrap; word-wrap: break-word; border: 1px solid transparent; overflow-x: auto; -webkit-overflow-scrolling: touch">
+    </div>
+    <div id="modifyEntryPageFooter">
+    <div data-role="navbar">
+      <ul>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">1</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">2</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">3</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">4</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">5</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">6</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">7</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">8</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">9</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">0</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">+</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">-</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">*</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">_</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">^</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">\</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">$</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">$\displaystyle&nbsp;</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">(</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">)</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">{</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">}</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">&gt;</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">&lt;</a></li>
+        <li class="modifyEntryPageShortcutKeyBar"><a href="#" data-role="button">=</a></li>
+      </ul>
+    </div>  
+    </div>
+  </div>
+</div>
+
+<div id="cancelWithoutSaveConfirmationDialog" data-role="dialog">
+  <div data-role="content">
+    <p>Cancel without saving?</p>
+    <a id="btnCancelWithoutSaveConfirmationYes" href="#" data-role="button">Yes</a>
+    <a href="#" data-role="button" data-rel="back">No</a>
+  </div>
+</div>
+
+<div id="deleteConfirmationDialog" data-role="dialog">
+  <div data-role="content">
+    <p>Delete current entry and all its children?</p>
+    <a id="btnDeleteConfirmationDialogYes" href="#" data-role="button">Yes</a>
+    <a href="#" data-role="button" data-rel="back">No</a>
+  </div>
+</div>
+
+<div id="moveBeforePage" data-role="page">
+	<div data-role="header" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar">
+      <p align="center">select an entry to move before it</p>
+      <ul>
+        <li><a id="btnMoveBefore" href="#" data-role="button">Move</a></li>
+        <li><a id="btnCancelMoveBefore" href="#" data-role="button">Cancel</a></li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="content">
+    <ul id="moveBeforeSelection" data-role="listview">
+    </ul>
+  </div>
+</div>
+
+<div id="moveAfterPage" data-role="page">
+	<div data-role="header" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar">
+      <p align="center">select an entry to move after it</p>
+      <ul>
+        <li><a id="btnMoveAfter" href="#" data-role="button">Move</a></li>
+        <li><a id="btnCancelMoveAfter" href="#" data-role="button">Cancel</a></li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="content">
+    <ul id="moveAfterSelection" data-role="listview">
+    </ul>
+  </div>
+</div>
+
+<div id="moveDownPage" data-role="page">
+	<div data-role="header" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar">
+      <p align="center">select an entry to append to</p>
+      <ul>
+        <li><a id="btnMoveToChild" href="#" data-role="button">Move</a></li>
+        <li><a id="btnCancelMoveDown" href="#" data-role="button">Cancel</a></li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="content">
+    <ul id="moveDownSelection" data-role="listview">
+    </ul>
+  </div>
+</div>
+
+<div id="xsltPage" data-role="page">
+  <div data-role="header" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar">
+      <ul>
+        <li><a id="btnOpenXslt" href="fileBrowser.html" data-role="button">Open XSLT</a></li>
+        <li><a href="#" data-role="button" data-rel="back">Back</a></li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="content">
+    <div style="border: 1px solid #000000; overflow-x: scroll;">
+      <div id="xsltResult" style="padding: 2px;">
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

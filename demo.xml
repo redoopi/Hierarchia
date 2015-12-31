@@ -1,0 +1,120 @@
+<notebook xmlns="http://www.w3.org/1999/xhtml" tabWidth="10000" nextEntryId="64"><entry xmlns="" id="11"><title><![CDATA[Exponential and natural logarithmic functions]]></title><content /><entry xmlns="http://www.w3.org/1999/xhtml" id="1"><title><![CDATA[Exponential functions]]></title><content /><entry xmlns="" id="2"><title><![CDATA[Definition]]></title><content><![CDATA[An exponential function is a function of the form $a^x$, where $a\gt 0$ and $a\ne 1$.]]></content><entry id="59"><title><![CDATA[$x=0$]]></title><content><![CDATA[$a^0=1$]]></content></entry><entry id="60"><title><![CDATA[$x=n$ , where $n$ is a positive integer]]></title><content><![CDATA[$a^n=a\cdot a\cdot\cdots\cdot a\quad$ ($n$ factors of $a$)]]></content></entry><entry id="61"><title><![CDATA[$x=-n$ , where $n$ is a positive integer]]></title><content><![CDATA[$a^{-n}=1/a^n$]]></content></entry><entry id="62"><title><![CDATA[$x$ is a rational number: $x=p/q$, where $p$ and $q$ are integers and $q\gt 0$]]></title><content><![CDATA[$a^{p/q}=\sqrt[q]{a^p}=(\sqrt[q]{a})^p$]]></content></entry><entry id="63"><title><![CDATA[$x$ is an irrational number]]></title><content><![CDATA[$\displaystyle a^x=\lim_{r\to x}a^r$, where $r$ is a rational number.]]></content></entry></entry><entry xmlns="" id="3"><title><![CDATA[Basic properties]]></title><content><![CDATA[Given that $a,b\gt 0$:
+
+$a^{r+s}=a^ra^s$
+$a^{r-s}=a^r/a^s$
+$a^{rs}=(a^r)^s$
+$(ab)^r=a^rb^r$]]></content></entry><entry xmlns="" id="4"><title><![CDATA[The natural base]]></title><content /><entry id="5"><title><![CDATA[The number $e$]]></title><content><![CDATA[$\displaystyle e=\lim_{h\to 0}(1+h)^{\frac{1}{h}}= \lim_{n\to \infty}\left(1+\frac{1}{n}\right)^n$
+]]></content></entry><entry id="6"><title><![CDATA[Natural exponential function]]></title><content><![CDATA[A natural exponential function is an exponential function with base $e$, i.e. $e^x$. $e$ is called the natural base.]]></content></entry><entry id="7"><title><![CDATA[$e^{rt}$]]></title><content><![CDATA[By definition of $e$, replace $n$ with $n/r$, take both sides to the power $rt$, we obtain:
+
+$\displaystyle e^{rt} = \lim_{n\to \infty}\left(1+\frac{r}{n}\right)^{nt}$
+]]></content></entry></entry></entry><entry id="8"><title><![CDATA[Natural logarithmic functions]]></title><content /><entry id="9"><title><![CDATA[Definition]]></title><content><![CDATA[A natural logarithmic function is a logarithmic function with base $e$, i.e. $\ln x=\log_e x$.
+
+Alternatively, a natural logarithmic function can be defined as an integral:
+$\ln x=\int_1^x \frac{1}{t}\,dt \text{ , where } x\gt 0$
+]]></content></entry><entry id="10"><title><![CDATA[Stirling's approximation]]></title><content><![CDATA[Since $\ln(xy)=\ln x+\ln y$, 
+$\ln n!=\ln (1\cdot 2\cdots n)=\sum_{k=1}^n \ln k$ = sum of area of rectangles with height $\ln k$ and width $1$. 
+If $n$ is large, the value closely approximates $\int_1^n \ln x\,dx$. 
+
+Hence, for large $n$,  $\ln(n!)\approx n\ln n-n$
+]]></content></entry></entry></entry><entry xmlns="" id="12"><title><![CDATA[Trigonometric functions]]></title><content /><entry id="13"><title><![CDATA[Definition]]></title><content><![CDATA[Suppose $(x,y)$ is any point on a circle of radius $r$, centered at origin, and $\theta$ is its angle measured counterclockwise from positive $x$-axis, then
+$\sin\theta=\frac{y}{r} \ ,\ \cos\theta=\frac{x}{r} \ ,\  \tan\theta=\frac{y}{x}$
+$\csc\theta=\frac{r}{y} \ ,\ \sec\theta=\frac{r}{x} \ ,\  \cot\theta=\frac{x}{y}$
+$\theta$ is measured in radian iff arc length $s=r\theta$.
+
+The coordinates $(x,y)$ can then be expressed as $(r\cos\theta,r\sin\theta)$.
+]]></content></entry><entry id="15"><title><![CDATA[Applications]]></title><content><![CDATA[In any triangle with sides $a,b,c$ opposite to the angles $A,B,C$:]]></content><entry id="14"><title><![CDATA[Law of sines]]></title><content><![CDATA[$\displaystyle \frac{a}{\sin A}=\frac{b}{\sin B}=\frac{c}{\sin C}$]]></content></entry><entry id="16"><title><![CDATA[Law of cosines]]></title><content><![CDATA[$c^2=a^2+b^2-2ab\cos C$]]></content></entry><entry id="17"><title><![CDATA[Area of triangle]]></title><content><![CDATA[$\displaystyle =\frac{1}{2}bc\sin A$]]></content></entry></entry><entry id="18"><title><![CDATA[Trigonometric identities]]></title><content /><entry id="19"><title><![CDATA[Pythagorean identities]]></title><content><![CDATA[$
+\sin^2 \theta + \cos^2 \theta = 1 \\
+1 + \tan^2 \theta = \sec^2 \theta \\
+1 + \cot^2 \theta = \csc^2 \theta
+$
+]]></content></entry><entry id="22"><title><![CDATA[Complementary angle identities]]></title><content><![CDATA[$
+\sin\theta=\cos(\frac{\pi}{2}-\theta) \\
+\tan\theta=\cot(\frac{\pi}{2}-\theta) \\
+\sec\theta=\csc(\frac{\pi}{2}-\theta)
+$]]></content></entry><entry id="23"><title><![CDATA[Opposite angle identities]]></title><content><![CDATA[$
+\sin(-\theta) = -\sin\theta \\
+\cos(-\theta) = \cos\theta \\
+\tan(-\theta) = -\tan\theta 
+$]]></content></entry><entry id="21"><title><![CDATA[Addition formulae]]></title><content><![CDATA[$
+\sin(A+B) = \sin A\cos B + \cos A\sin B \\
+\cos(A+B) = \cos A\cos B - \sin A\sin B \\
+\tan(A+B) = \frac{\tan A+\tan B}{1-\tan A \tan B}
+$]]></content></entry><entry id="20"><title><![CDATA[Subtraction formulae]]></title><content><![CDATA[$
+\sin(A-B) = \sin A\cos B - \cos A\sin B \\
+\cos(A-B) = \cos A\cos B + \sin A\sin B \\
+\tan(A-B) = \frac{\tan A-\tan B}{1+\tan A \tan B}
+$]]></content></entry><entry id="24"><title><![CDATA[Sum to product formulae]]></title><content><![CDATA[$
+\sin A + \sin B = 2\sin\left(\frac{A+B}{2}\right)\cos\left(\frac{A-B}{2}\right) \\
+\sin A - \sin B = 2\cos\left(\frac{A+B}{2}\right)\sin\left(\frac{A-B}{2}\right) \\
+\cos A + \cos B = 2\cos\left(\frac{A+B}{2}\right)\cos\left(\frac{A-B}{2}\right) \\
+\cos A - \cos B = -2\sin\left(\frac{A+B}{2}\right)\sin\left(\frac{A-B}{2}\right) 
+$]]></content></entry><entry id="25"><title><![CDATA[Product to sum formulae]]></title><content><![CDATA[$
+\sin A\sin B = \frac{1}{2}\,[\cos(A-B)-\cos(A+B)] \\
+\cos A\cos B = \frac{1}{2}\,[\cos(A-B)+\cos(A+B)] \\
+\sin A\cos B = \frac{1}{2}\,[\sin(A-B)+\sin(A+B)] 
+$]]></content></entry><entry id="26"><title><![CDATA[Double angle formulae]]></title><content><![CDATA[$
+\sin 2\theta = 2 \sin\theta\cos\theta \\
+\cos 2\theta = \cos^2 \theta - \sin^2 \theta = 2\cos^2 \theta - 1 = 1 - 2 \sin^2 \theta \\
+\tan 2\theta = \frac{2\tan\theta}{1-\tan^2 \theta}
+$]]></content></entry><entry id="27"><title><![CDATA[Half angle formulae]]></title><content><![CDATA[$
+\sin\frac{\theta}{2} = \pm\sqrt{\frac{1-\cos\theta}{2}} \qquad
+\left(\text{or } \sin^2 \theta = \frac{1-\cos 2\theta}{2}\right) \\
+\cos\frac{\theta}{2} = \pm\sqrt{\frac{1+\cos\theta}{2}} \qquad
+\left(\text{or } \cos^2 \theta = \frac{1+\cos 2\theta}{2}\right) \\
+\tan\frac{\theta}{2} = \frac{\sin\theta}{1+\cos\theta} = \frac{1-\cos\theta}{\sin\theta}
+$]]></content></entry></entry><entry id="28"><title><![CDATA[Solutions of trigonometric equations]]></title><content><![CDATA[$
+\sin x = c \Rightarrow x = \begin{cases}
+	\sin^{-1}c + 2k\pi \\ \pi - \sin^{-1}c + 2k\pi \end{cases} \\
+\cos x = c \Rightarrow x = \begin{cases}
+	\cos^{-1}c + 2k\pi \\ 2\pi - \cos^{-1}c + 2k\pi \end{cases} \\
+\tan x = c \Rightarrow x = \tan^{-1}c + k\pi
+$]]></content></entry></entry><entry xmlns="" id="29"><title><![CDATA[Hyperbolic functions]]></title><content /><entry id="30"><title><![CDATA[Definitions]]></title><content><![CDATA[$\displaystyle \sinh x = \frac{e^x-e^{-x}}{2} \qquad \text{domain $\mathbb{R}$, range $\mathbb{R}$}  \\ $ 
+$\displaystyle \cosh x = \frac{e^x+e^{-x}}{2} \qquad \text{domain $\mathbb{R}$, range $[1,+\infty)$} \\ $ 
+$\displaystyle \tanh x = \frac{e^x-e^{-x}}{e^x+e^{-x}} \qquad \text{domain $\mathbb{R}$, range $(-1,1)$} $
+]]></content></entry><entry id="31"><title><![CDATA[Hyperbolic identities]]></title><content><![CDATA[$
+\cosh^2 x-\sinh^2 x=1 \\ 
+1-\tanh^2 x=\text{sech}^2 x \\ 
+\coth^2 x-1=\text{csch}^2 x \\
+\sinh 2x=2\sinh x\cosh x \\
+\cosh 2x=\cosh^2x+\sinh^2 x
+$
+]]></content></entry><entry id="32"><title><![CDATA[Inverse hyperbolic functions]]></title><content><![CDATA[$
+\sinh^{-1} x = \ln(x+\sqrt{x^2+1}) \qquad \text{domain $\mathbb{R}$, range $\mathbb{R}$} \\
+\cosh^{-1} x = \ln(x+\sqrt{x^2-1}) \qquad \text{domain $[1,+\infty)$, range $[0,+\infty)$} \\
+\tanh^{-1} x = \frac{1}{2}\ln\left(\frac{1+x}{1-x}\right) \qquad \text{domain $(-1,1)$, range $\mathbb{R}$} 
+$]]></content></entry></entry><entry xmlns="" id="33"><title><![CDATA[Complex numbers]]></title><content /><entry id="34"><title><![CDATA[Representations]]></title><content /><entry id="35"><title><![CDATA[Standard form]]></title><content><![CDATA[$z=x+iy$
+
+where $(x,y)$ is the point $z$ in Argand diagram.]]></content></entry><entry id="36"><title><![CDATA[Polar form]]></title><content><![CDATA[$z=r(\cos\theta+i\sin\theta)$
+
+In Argand diagram:
+$r$ is the distance of the point $z$ from the origin
+$\theta$ is the angle that the line joining that point and the origin makes with the positive real axis (take counterclockwise as positive angle)]]></content></entry><entry id="37"><title><![CDATA[Relationship between standard and polar form]]></title><content><![CDATA[$z=x+iy=r(\cos\theta+i\sin\theta)=re^{i(\theta+2n\pi)}$]]></content></entry></entry><entry id="39"><title><![CDATA[Definitions]]></title><content /><entry id="40"><title><![CDATA[Real part of $z$]]></title><content><![CDATA[$ = \text{Re}(z)=x=r\cos\theta$
+]]></content></entry><entry id="41"><title><![CDATA[Imaginary part of $z$]]></title><content><![CDATA[$ = \text{Im}(z)=y=r\sin\theta$]]></content></entry><entry id="42"><title><![CDATA[Equality]]></title><content><![CDATA[$z_1=z_2 \text{ iff } \text{Re($z_1$)=Re($z_2$) and Im($z_1$)=Im($z_2$)}$]]></content></entry><entry id="43"><title><![CDATA[Modulus]]></title><content><![CDATA[$|z|=\sqrt{x^2+y^2}=r=\sqrt{zz^*}$]]></content></entry><entry id="44"><title><![CDATA[Argument]]></title><content><![CDATA[$\arg(z)=\tan^{-1}(y/x)=\theta+2n\pi \quad  \text{($\theta$ must be in correct quadrant)}$]]></content></entry><entry id="45"><title><![CDATA[Complex conjugate]]></title><content><![CDATA[$z^*=x-iy=re^{i(-\theta+2n\pi)}\text{ = reflection of $z$ in the real axis}$]]></content></entry></entry><entry id="46"><title><![CDATA[Properties]]></title><content><![CDATA[$
+(z_1\pm z_2)^*=z_1^*\pm z_2^* \\ 
+(z_1 z_2)^*=z_1^* z_2^* \\ 
+\left(\frac{z_1}{z_2}\right)^*=\frac{z_1^*}{z_2^*} \\ 
+|z|^2=zz^* \\ 
+z+z^*=2\,\text{Re}(z)\le 2|z| \\ 
+z-z^*=2i\,\text{Im}(z) \\
+|z_1 z_2|=|z_1||z_2| \\ 
+\arg(z_1 z_2)=\arg(z_1)+\arg(z_2) \\
+\left|\frac{z_1}{z_2}\right|=\frac{|z_1|}{|z_2|} \\ 
+\arg\left(\frac{z_1}{z_2}\right)=\arg(z_1)-\arg(z_2)  
+$]]></content></entry><entry id="47"><title><![CDATA[Complex exponential functions]]></title><content /><entry id="48"><title><![CDATA[Definition]]></title><content><![CDATA[$\displaystyle \exp z\equiv\sum_{k=0}^{\infty}\frac{z^k}{k!}=1+z+\frac{z^2}{2!}+\frac{z^3}{3!}+\dots=e^z$]]></content></entry><entry id="49"><title><![CDATA[Basic properties]]></title><content><![CDATA[$
+e^{z_1}e^{z_2}=e^{z_1+z_2} \\
+e^{x+iy}=e^x e^{iy} \\
+(e^{i\theta})^n=e^{n(i\theta)}
+$]]></content></entry><entry id="50"><title><![CDATA[Euler's equation]]></title><content><![CDATA[$z=r(\cos\theta+i\sin\theta)=re^{i\theta}\equiv re^{i(\theta+2n\pi)} \ ,\ n\in\mathbb{Z}$]]></content></entry><entry id="51"><title><![CDATA[de Moivre's theorem]]></title><content><![CDATA[$(\cos\theta+i\sin\theta)^n = \cos n\theta+i\sin n\theta=e^{in\theta} \ ,\ n\in\mathbb{C}$]]></content></entry></entry><entry id="52"><title><![CDATA[Complex natural logarithm]]></title><content /><entry id="53"><title><![CDATA[Definition]]></title><content><![CDATA[Natural logarithm of a complex number is defined as $w=\text{Ln }  z$ such that $z=e^w$.
+]]></content></entry><entry id="54"><title><![CDATA[Principal value]]></title><content><![CDATA[Principal value of $\text{Ln } z=\ln z$ = the value of $\text{Ln }z$ at which $-\pi\lt\arg z\le\pi$.]]></content></entry><entry id="55"><title><![CDATA[Complex power]]></title><content><![CDATA[Complex power $z^w$ is defined by $z^w=e^{w\text{Ln}\,z}$, where $z,w\in\mathbb{C}$.]]></content></entry><entry id="56"><title><![CDATA[Properties]]></title><content><![CDATA[$
+\text{Ln}(z_1z_2)=\text{Ln}(z_1)+\text{Ln}(z_2) \\
+\text{Ln}\,z_1^{z_2}=z_2\,\text{Ln}\,z_1 \\
+(e^{z_1})^{z_2}=e^{z_1z_2} \\
+\text{Ln }z=\ln|z|+i\arg z \\
+\ln z = \ln|z|+i\theta \\
+a^b=e^{b\,\text{Ln}\,a}=e^{b\,(\ln |a|+i(\theta+2n\pi))} \ ,\ a,b\in\mathbb{C}
+$]]></content></entry></entry><entry id="57"><title><![CDATA[Relationship between trigonometric and exponential functions]]></title><content><![CDATA[$\displaystyle \sin x = \frac{e^{ix}-e^{-ix}}{2i} \\ $
+$\displaystyle \cos x = \frac{e^{ix}+e^{-ix}}{2} $]]></content></entry><entry id="58"><title><![CDATA[Relationship between hyperbolic and trigonometric functions]]></title><content><![CDATA[$\cosh x = \cos ix \\
+i\sinh x = \sin ix \\
+\cos x = \cosh ix \\
+i\sin x = \sinh ix
+$]]></content></entry></entry></notebook>

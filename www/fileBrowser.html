@@ -1,0 +1,300 @@
+<div data-role="page" id="fileBrowser">
+	
+	<style media="screen" type="text/css">
+		.file_icon {
+			font-size:x-large;
+			font-weight:bolder;
+			background-color:#ccc;
+			vertical-align:top;	
+		}
+		
+		.small_btn {
+			font-size:medium;
+		}	
+		
+		.file_list_row {
+			font-size:x-large;
+		}
+		
+		.selectedRow .file_name span {
+			background-color:#aaa;
+		}
+		
+		#curr_folder {
+			font-size:x-large;
+		}
+		
+		#fileBrowserTitle {
+			font-size:large;			
+		}
+	</style>
+	
+	<script language="JavaScript">
+		var currPath = "";
+		var currEntry = null;
+		
+		if (typeof file_Browser_params == 'undefined')
+			file_Browser_params = new Object();
+			
+		if (typeof file_Browser_params.directory_browser != 'boolean')
+			file_Browser_params.directory_browser = false;
+	
+		if (typeof file_Browser_params.on_folder_select != 'function')
+			file_Browser_params.on_folder_select = null;
+
+		if (typeof file_Browser_params.on_file_select != 'function')
+			file_Browser_params.on_file_select = null;
+		
+		if (typeof file_Browser_params.on_ok != 'function')
+			file_Browser_params.on_ok = null;
+
+		if (typeof file_Browser_params.on_cancel != 'function')
+			file_Browser_params.on_cancel = null;
+		
+		if (typeof file_Browser_params.new_file_btn == 'undefined')
+			file_Browser_params.new_file_btn = true;
+
+		if (typeof file_Browser_params.new_folder_btn == 'undefined')
+			file_Browser_params.new_folder_btn = true;
+		
+		// invoked when this file browser is shown
+		function init() {   
+			if (typeof file_Browser_params.title != 'undefined')
+				$('#fileBrowserTitle').text(file_Browser_params.title);
+		
+			if (!file_Browser_params.new_file_btn)
+				$("#new_file_btn").hide();
+
+			if (!file_Browser_params.new_folder_btn)
+				$("#new_dir_btn").hide();
+			
+			// the new_file_btn is clicked or tapped
+			$("#new_file_btn").click(function() {
+				if (currEntry == null)
+					return;
+				var fileName = prompt("Enter a file name", "untitled.txt");
+				if (fileName == null || fileName == '')
+					return;
+				currEntry.getFile(fileName, {create: false}, 
+					function() {  // the file to be created already exists
+						alert("File already exists");
+					}, 
+					function() {  // the file to be created does not exist
+						currEntry.getFile(fileName, {create: true},
+							function() {  // the new file is created
+								getEntries(currEntry);  //refresh current folder
+							},
+							function() {  // error occurred during file creation
+								alert("Error creating file " + fileName);
+							}
+						);
+					}
+				);
+			});
+			
+			// the new_dir_btn is clicked or tapped
+			$("#new_dir_btn").click(function() {
+				if (currEntry == null)
+					return;
+				var fileName = prompt("Enter a folder name", "untitled");
+				if (fileName == null || fileName == '')
+					return;
+				currEntry.getDirectory(fileName, {create: false},
+					function() {  // the folder to be created already exists
+						alert("Folder already exists");
+					}, 
+					function() {  // the folder to be created does not exist
+						currEntry.getDirectory(fileName, {create: true},
+							function() {  // the new folder is created
+								getEntries(currEntry);  //refresh current folder
+							},
+							function() {  // error occurred during folder creation
+								alert("Error creating file " + fileName);
+							}
+						);
+					}
+				);
+			});
+			
+			// the OK button is clicked or tapped
+			$("#file_browser_ok").click(function() {			
+				if (file_Browser_params.on_ok == null)
+					return;
+				var $entry;
+				var $selectedRow = $('.selectedRow');
+				if ($selectedRow.length == 1) {
+					$entry = $selectedRow.data("entry");
+				} 
+				file_Browser_params.on_ok(currEntry, $entry); // invoke the callback function "on_ok"
+			});
+
+			// the Cancel button is clicked or tapped
+			$("#file_browser_cancel").click(function() {
+				if (file_Browser_params.on_cancel == null)
+					return;
+				file_Browser_params.on_cancel(currEntry); // invoke the callback function "on_cancel"
+			});
+			
+			// display the folder initially when the file browser is shown
+			if (typeof file_Browser_params.initial_folder == 'undefined' || file_Browser_params.initial_folder == null) {
+				file_Browser_params.initial_folder = null;
+				getRootAndDisplay();
+			} 
+			else {
+				getEntries(file_Browser_params.initial_folder);
+			}
+		}
+		
+		// display the root folder of the file system 
+		function getRootAndDisplay() {
+			getRoot(function(dirEntry) {
+						try {
+							getEntries(dirEntry);
+						}
+						catch (err) {
+							alertError(err);
+						}
+					}
+			);
+		}
+
+		// get the root directory of the file system and invoke the specified callback function
+		function getRoot(onGetRoot) {		
+			if (typeof window.requestFileSystem != 'undefined') {
+				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0,
+					function(fileSystem) {  // successful to retrieve the file system
+						if (typeof onGetRoot != 'undefined')
+						  onGetRoot(fileSystem.root); // pass the FileSystem object that represents the root directory of the file system
+					},
+					function() {  // error occurs when retrieving the file system
+						log("Error occurred when accessing local file system");
+					}
+				);
+			}			
+			return null;
+		}
+		
+		// display the parent folder of the current folder
+		function upOneLevel() {
+			if (currEntry == null)
+				return;
+			currEntry.getParent(
+				function(parentArg) {
+				  getEntries(parentArg);
+				},
+				function(error) {
+				  alert("Error occurred when getting the parent folder");
+				}
+			);
+		}
+		
+		// display the specified folder
+		function getEntries(dirEntry) {
+			if (dirEntry == null)
+				return;
+			currPath = dirEntry.fullPath;
+			currEntry = dirEntry;
+			$("#curr_folder").html(currPath);
+			var dirReader = dirEntry.createReader();  // obtain a DirectoryReader, which is an object that lists files and directories within a directory
+			dirReader.readEntries(  // read the entries in this directory
+				function(entries) {
+				  displayEntries(entries);			
+				},
+				function(err) {
+				  alertError(err);	
+				}
+			);
+		}
+		
+		// display the specified folder entries
+		function displayEntries(entriesArray) {
+			entriesArray.sort(function(a,b) {
+				var str1 = a.name.toLowerCase();
+				var str2 = b.name.toLowerCase();
+				if (str1 < str2)
+					return -1;
+				if (str1 > str2)
+					return 1;
+				return 0;
+			});				
+			
+			$("#fileBrowser_entries").empty();
+			var table = $("<table id='file_entry_table'></table>").appendTo("#fileBrowser_entries");
+			
+			// create the ".." entry (if it is clicked or tapped, the parent folder will be displayed)
+			var row = $("<tr class='file_list_row'><td class='file_icon'>D</td><td>..</td></tr>").appendTo(table);
+			$(row).click(function(event) {
+				upOneLevel();
+			});
+			
+			// for each entry in the specified folder entries ...
+			for (var i in entriesArray) {
+				var isFolder = entriesArray[i].isDirectory;
+				var name = entriesArray[i].name;
+
+				// if directory_browser = true, only list folders
+				if (file_Browser_params.directory_browser && !isFolder)
+					continue;
+				
+				// create an entry for a directory or a file
+				var row = $("<tr class='file_list_row'></tr>").appendTo(table);
+				$(row).data("entry", entriesArray[i]);
+				$("<td class='file_icon'>" + (isFolder ? 'D' : 'F') + "</td>").appendTo(row);
+				$("<td class='file_name'><span>" + name + "</span></td>").appendTo(row);
+				$(row).click(function(event) {  // when a row is clicked
+					var $this = $(this);
+					// add the "selectedRow" class to the selected row
+					$('.file_list_row').removeClass("selectedRow");
+					$this.addClass("selectedRow");
+					// store the name of the directory or file in the variable "entryData"
+					var entryData = $this.data("entry");
+					// if the row represents a directory, invoke the callback function "on_folder_select"
+					if (entryData.isDirectory) {
+						if (file_Browser_params.on_folder_select != null) {
+							var ret = file_Browser_params.on_folder_select(entryData);
+							if (ret == false) {
+								$('.ui-dialog').dialog('close');
+								return;
+							}
+						}
+						getEntries(entryData);  // display the folder that is clicked or tapped
+					}
+					// if the row represents a file, invoke the callback function "on_file_select"
+					else if (file_Browser_params.on_file_select != null) {
+						var ret = file_Browser_params.on_file_select(entryData);
+						if (ret == false) {
+							$('.ui-dialog').dialog('close');
+							return;
+						}
+					}
+				});
+			}
+		}
+		
+		function alertError(err) {
+			if (typeof err.message != 'undefined')
+				err = err.message;
+			alert(err);
+		}
+		
+		init();
+	</script>
+
+	<div data-role="header" data-position="fixed" data-tap-toggle="false">
+		<h2 id="fileBrowserTitle">Select a file</h2>
+		<span id="curr_folder"></span><br/>
+		<a href="#" id="new_file_btn" data-role="button" data-inline="true" class="small_btn">New File</a>
+		<a href="#" id="new_dir_btn" data-role="button" data-inline="true" class="small_btn">New Dir</a>
+	</div>
+	<div data-role="content">
+		<div id="fileBrowser_entries"></div>
+	</div>
+	<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+		<div data-role="navbar">
+		  <ul>
+			<li><a href="#" id="file_browser_ok" data-role="button" data-rel="back" data-inline="true">Select</a></li>
+			<li><a href="#" id="file_browser_cancel" data-role="button" data-rel="back" data-inline="true">Cancel</a></li>
+		  </ul>
+		</div>
+	</div>
+</div>
